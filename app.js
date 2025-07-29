@@ -24,8 +24,7 @@ app.use('/courses', coursesRouter);
 
 async function init() {
     try {
-        console.log('🔄 Syncing database...');
-        await sequelize.sync({ alter: true });
+        // await sequelize.sync({ alter: true });
 
         console.log('📚 Seeding initial courses...');
         const names = ['Python', 'Java', 'C/Cpp', '.NET'];
