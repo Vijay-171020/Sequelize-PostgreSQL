@@ -1,10 +1,11 @@
-const app = require('./app');
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+// const app = require('./app');
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
 
 
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
+const app = require('./app');
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
@@ -18,5 +19,15 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
 });
 
 sequelize.authenticate()
-    .then(() => console.log('✅ Database connected successfully.'))
-    .catch(err => console.error('❌ Database connection failed:', err));
+    .then(() => {
+        console.log('✅ Database connected successfully.');
+
+        const PORT = process.env.PORT || 3000;
+        app.listen(PORT, () => {
+            console.log(`🚀 Server listening on port ${PORT}`);
+        });
+    })
+    .catch(err => {
+        console.error('❌ Database connection failed:', err);
+        process.exit(1);
+    });
