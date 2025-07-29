@@ -24,18 +24,23 @@ app.use('/courses', coursesRouter);
 
 async function init() {
     try {
+        console.log('🔄 Syncing database...');
         await sequelize.sync({ alter: true });
+
+        console.log('📚 Seeding initial courses...');
         const names = ['Python', 'Java', 'C/Cpp', '.NET'];
         for (const name of names) {
             await Course.findOrCreate({ where: { name } });
         }
-        console.log('✅ DB synced and courses initialized');
+
+        console.log('✅ Database synced and seeded.');
     } catch (err) {
-        console.error('❌ Error during DB sync/init:', err);
-        process.exit(1); // exit so you see failure in logs
+        console.error('❌ Error in init():', err);
+        process.exit(1);
     }
 }
 init();
+
 
 
 module.exports = app;
