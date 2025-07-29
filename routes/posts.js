@@ -6,7 +6,7 @@ const postController = require('../controllers/postController');
 const { createPostValidator, updatePostValidator } = require('../validators/postValidator');
 const router = express.Router();
 
-router.post('/', auth, validate, createPostValidator, postController.createPost);
+router.post('/', auth, createPostValidator, validate, postController.createPost);
 router.get('/', postController.getAllPosts);
 router.get('/:id', auth, postController.getPostById);
 router.put('/:id', auth, validate, updatePostValidator, postController.updatePost);
