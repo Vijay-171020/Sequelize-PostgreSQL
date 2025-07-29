@@ -22,4 +22,8 @@ async function init() {
 }
 init();
 
+sequelize.authenticate()
+    .then(() => console.log('✅ Database connection successful'))
+    .catch(err => console.error('❌ Database connection failed:', err));
+
 module.exports = app;
